@@ -1,0 +1,78 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens: a charcoal/slate base with a single amber "HV warning" accent.
+ * Components use the semantic names below (bg-surface, text-ink-muted, border-line,
+ * bg-accent, text-accent-ink …), never raw colours.
+ */
+:root {
+  --canvas: #f5f6f8;
+  --surface: #ffffff;
+  --surface-muted: #eef0f3;
+  --line: #dde1e6;
+  --ink: #15191e;
+  --ink-muted: #4c5561;
+  --ink-subtle: #687280;
+  --accent: #f59e0b;
+  --accent-ink: #b45309;
+  --accent-soft: #fdf3dc;
+  --on-accent: #1c1404;
+  color-scheme: light;
+}
+
+.dark {
+  --canvas: #0f1215;
+  --surface: #161a1f;
+  --surface-muted: #1e232a;
+  --line: #2b313a;
+  --ink: #e8ebef;
+  --ink-muted: #a4adb8;
+  --ink-subtle: #808a97;
+  --accent: #f5a524;
+  --accent-ink: #fbbf24;
+  --accent-soft: rgb(245 165 36 / 0.12);
+  --on-accent: #1c1404;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+}
+
+@theme {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--accent-soft);
+  }
+}
