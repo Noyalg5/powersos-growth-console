@@ -2,7 +2,7 @@
 
 **Author:** Noyal George
 **Status:** Concept prototype for a KTP Associate (Business Development Manager) application
-**Last updated:** 14 October 2026
+**Last updated:** 15 October 2026
 
 ## 1. Purpose
 
@@ -47,7 +47,11 @@ Partner and supplier definitions are my working assumptions and are labelled as 
 
 ## 4. Sections
 
-The **Overview** introduces the ecosystem and the public facts, then links to five sections:
+The **Overview** is a one-screen executive summary, computed live from `src/lib`: the four
+sides, five network KPIs, the top coverage gaps and first recruit, the top three sectors (with
+any saved edits), the weighted pipeline, an editable first-90-days plan and every modelled
+assumption. Its **Start demo** button runs an eight-step guided demo across the sections
+(`src/demo.ts`), which the README's interview script follows. It links to five sections:
 
 1. **Ecosystem simulator:** one emergency played out across all four sides. Incident timeline
    against the 75-minute target, four-lane view, responder matching (rating, ETA, distance),
@@ -59,7 +63,8 @@ The **Overview** introduces the ecosystem and the public facts, then links to fi
    action queue.
 4. **Market strategy:** sector prioritisation across the nine target sectors, alternatives
    organisations use today, membership pricing sandbox.
-5. **Pipeline:** early-adopter CRM, voice of customer → roadmap, proposal generator.
+5. **Pipeline:** early-adopter CRM, voice of customer → roadmap, proposal generator, events
+   planner.
 
 `src/nav.ts` holds the canonical titles, questions and planned modules for each section.
 
@@ -94,8 +99,9 @@ The **Overview** introduces the ecosystem and the public facts, then links to fi
 | UI         | React 19, Tailwind CSS 4                      |
 | Routing    | React Router 8 (data router, browser history) |
 | State      | Zustand 5                                     |
-| Charts     | Recharts 3                                    |
+| Charts     | Hand-drawn SVG (no chart library)             |
 | Maps       | react-leaflet 5 + Leaflet, OpenStreetMap tiles |
+| Drag and drop | @dnd-kit/core 6                          |
 | Tests      | Vitest 5                                      |
 | Lint       | oxlint                                        |
 | Hosting    | Cloudflare Pages (static, no backend)         |
@@ -118,11 +124,15 @@ The **Overview** introduces the ecosystem and the public facts, then links to fi
 ```
 src/
   lib/          Pure business logic (ETA, coverage, scoring, pricing, RNG, formatting) + tests
+  types/        Typed models for the synthetic datasets
+  data/         Seeded synthetic datasets, generated once at load + tests
   store/        Zustand stores for state shared across pages
   components/   Shared UI; layout/ holds the app shell
   pages/        One file per route (default export)
   nav.ts        Pages, sections and planned modules: the single source of truth
-  router.tsx    Route table built from nav.ts
+  demo.ts       The guided demo's steps and the elements it highlights
+  storageKeys.ts  Browser storage keys, shared by pages that read each other's edits
+  router.tsx    Route table built from nav.ts; every page is lazily loaded
 docs/           Brief and decisions
 ```
 
@@ -177,6 +187,8 @@ npm test
 npm run build      # type-check + production build into dist/
 ```
 
-Cloudflare Pages: build command `npm run build`, output directory `dist`. Node version comes
-from `.node-version`. With no `404.html` in the output, Pages serves `index.html` for unknown
-paths, so deep links work without a `_redirects` file.
+Cloudflare Pages project `powersos-concept-noyal` (an unofficial name, so the URL can't be
+mistaken for a PowerSOS site): `npm run deploy` builds and deploys with wrangler. Build command
+`npm run build`, output directory `dist`; Node version comes from `.node-version`. With no
+`404.html` in the output, Pages serves `index.html` for unknown paths, so deep links work
+without a `_redirects` file. `public/_headers` adds `X-Robots-Tag: noindex, nofollow`.

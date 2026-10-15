@@ -1,6 +1,6 @@
 {
   "name": "powersos-growth-console",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Concept prototype: a business development console for growing a four-sided HV emergency-response ecosystem.",
   "author": "Noyal George",
@@ -15,7 +15,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc -b",
-    "lint": "oxlint"
+    "lint": "oxlint",
+    "deploy": "npm run build && npx --yes wrangler@4.145.0 pages deploy dist --project-name powersos-concept-noyal --branch main"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
