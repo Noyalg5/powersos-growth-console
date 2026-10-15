@@ -1,0 +1,115 @@
+/**
+ * Kinds of UK industry event worth a place in the plan. No real event is named: the
+ * name and date of each stay blank until someone checks the organiser's own listing,
+ * and the budgets are assumptions.
+ */
+import type { EventPlan } from '@/types'
+
+const plan = (event: Omit<EventPlan, 'name' | 'date' | 'verified'>): EventPlan => ({
+  ...event,
+  name: '',
+  date: '',
+  verified: false,
+})
+
+export const DEFAULT_EVENTS: readonly EventPlan[] = [
+  plan({
+    id: 'electrical-exhibition',
+    category: 'hv-electrical',
+    type: 'National electrical engineering trade exhibition: small stand',
+    sides: ['responder', 'supplier'],
+    objective: 'responder-recruitment',
+    budget: 3_500,
+    status: 'researching',
+  }),
+  plan({
+    id: 'contractors-branch',
+    category: 'hv-electrical',
+    type: "Regional electrical contractors' association branch meeting",
+    sides: ['responder'],
+    objective: 'responder-recruitment',
+    budget: 150,
+    status: 'idea',
+  }),
+  plan({
+    id: 'hv-training-day',
+    category: 'hv-electrical',
+    type: 'HV safety rules and authorisation refresher day: sponsor a break',
+    sides: ['responder'],
+    objective: 'responder-recruitment',
+    budget: 600,
+    status: 'idea',
+  }),
+  plan({
+    id: 'fm-exhibition',
+    category: 'facilities',
+    type: 'Facilities management trade exhibition: visit with booked meetings',
+    sides: ['partner', 'customer'],
+    objective: 'partner-meetings',
+    budget: 800,
+    status: 'researching',
+  }),
+  plan({
+    id: 'fm-networking',
+    category: 'facilities',
+    type: 'Regional facilities management networking evening',
+    sides: ['partner'],
+    objective: 'partner-meetings',
+    budget: 200,
+    status: 'idea',
+  }),
+  plan({
+    id: 'insurance-seminar',
+    category: 'facilities',
+    type: "Engineering insurance and risk managers' seminar",
+    sides: ['partner'],
+    objective: 'partner-meetings',
+    budget: 400,
+    status: 'idea',
+  }),
+  plan({
+    id: 'dc-conference',
+    category: 'data-centres',
+    type: 'Data centre industry conference: delegate pass',
+    sides: ['customer', 'supplier'],
+    objective: 'leads',
+    budget: 1_500,
+    status: 'researching',
+  }),
+  plan({
+    id: 'critical-facilities-forum',
+    category: 'data-centres',
+    type: "Critical facilities managers' forum",
+    sides: ['customer'],
+    objective: 'leads',
+    budget: 300,
+    status: 'idea',
+  }),
+  plan({
+    id: 'estates-conference',
+    category: 'healthcare-estates',
+    type: 'Healthcare estates and facilities annual conference',
+    sides: ['customer', 'partner'],
+    objective: 'leads',
+    budget: 1_200,
+    status: 'researching',
+  }),
+  plan({
+    id: 'estates-branch',
+    category: 'healthcare-estates',
+    type: 'Healthcare estates regional branch meeting',
+    sides: ['customer'],
+    objective: 'leads',
+    budget: 150,
+    status: 'idea',
+  }),
+  plan({
+    id: 'manufacturing-show',
+    category: 'manufacturing',
+    type: 'Manufacturing and engineering trade show: visit',
+    sides: ['customer', 'supplier'],
+    objective: 'leads',
+    budget: 500,
+    status: 'idea',
+  }),
+]
