@@ -7,7 +7,7 @@ export default function NotFound() {
     <PageHeader eyebrow="404" title="Page not found" lead="That address isn't part of the console.">
       <Link
         to={overview.path}
-        className="mt-8 inline-flex rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent hover:opacity-90"
+        className="mt-8 inline-flex h-10 items-center rounded-lg bg-accent px-4 text-sm font-medium text-on-accent hover:brightness-95"
       >
         Back to the overview
       </Link>

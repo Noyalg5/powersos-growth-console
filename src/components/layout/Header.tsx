@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export function Header({ title, onOpenNav }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-20 border-b border-line bg-canvas/85 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-line bg-canvas/85 backdrop-blur print:hidden">
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:px-6 lg:px-10">
         <button
           type="button"

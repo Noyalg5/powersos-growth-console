@@ -23,7 +23,17 @@ export interface Section {
 
 export const APP_NAME = 'PowerSOS Growth Console'
 
+/** The footer notice, word for word. Exports carry it too. */
+export const NOTICE =
+  'Concept prototype by Noyal George for a KTP application. Not affiliated with or endorsed by PowerSOS Ltd or Midlands Power Networks. All data is illustrative.'
+
 export const overview = { path: '/', title: 'Overview' } as const
+
+/**
+ * Development-only page for checking the synthetic datasets. Not in the sidebar,
+ * and the router leaves it out of production builds.
+ */
+export const dataExplorer = { path: '/data', title: 'Data explorer' } as const
 
 export const sections: readonly Section[] = [
   {
@@ -38,7 +48,7 @@ export const sections: readonly Section[] = [
       {
         title: 'Incident timeline',
         description:
-          'Request, match, dispatch, on site, restored, closed: each step timed against the 75-minute target.',
+          'Request, match, dispatch, source parts, on site, resolved, review: each step timed against the 75-minute target.',
       },
       {
         title: 'Four-lane view',
@@ -48,7 +58,7 @@ export const sections: readonly Section[] = [
       {
         title: 'Responder matching',
         description:
-          'How rating, ETA and distance trade off when the customer chooses who to send.',
+          'Candidates scored on ETA, rating, availability and compliance, with every exclusion explained.',
       },
       {
         title: 'Cost and approval',
@@ -70,22 +80,22 @@ export const sections: readonly Section[] = [
       {
         title: 'Coverage map',
         description:
-          'Customer sites and responder bases on an OpenStreetMap base, with estimated 75-minute reach.',
+          "Customer sites, responder bases and supplier depots on OpenStreetMap, with each site's cover and each responder's estimated 75-minute reach.",
       },
       {
         title: 'Liquidity KPIs',
         description:
-          'Fill rate, time to match, responders per site and utilisation: the health of both sides at once.',
+          'Sites covered by two or more responders, time to accept, arrivals within target and utilisation: the health of both sides at once.',
       },
       {
         title: 'Gaps and hotspots',
         description:
-          'Regions where demand outruns authorised responders, ranked by risk to the response target.',
+          'Under-covered sites by town, ranked by criticality, with a recruitment plan and demand against supply by region and hour.',
       },
       {
         title: 'Trends',
         description:
-          'Week-by-week movement, so recruitment and sales effort can be aimed and then checked.',
+          'Call-outs month by month, so recruitment and sales effort can be aimed and then checked.',
       },
     ],
   },
@@ -97,26 +107,32 @@ export const sections: readonly Section[] = [
     question:
       'Where do organisations and engineers drop out, and is everyone on the platform still compliant?',
     summary:
-      'Funnels for every side of the ecosystem, plus the checks that keep the network trustworthy: responder authorisation and site data quality.',
+      'Funnels for every side of the ecosystem, plus the checks that keep the network trustworthy: responder compliance, data quality and customer retention.',
     modules: [
       {
         title: 'Funnels per side',
         description:
-          'Wait-list to active for customers, partners, responders and suppliers, with drop-off at each stage.',
+          'Aware to active for customers, responders, suppliers and partners, with conversion, drop-off and days at each stage, and the biggest leak called out.',
       },
       {
-        title: 'Responder authorisation',
+        title: 'Onboarding checklists',
         description:
-          'HV authorisation, audit and competence status, with expiries due in the next 90 days.',
+          'Every organisation onboarding now, how far through its checklist it is and the next item it is waiting on.',
       },
       {
-        title: 'Data-quality checks',
+        title: 'Responder compliance',
         description:
-          'Completeness of pre-loaded site and equipment information, which is what makes a three-click request possible.',
+          'HV authorisation, insurance and audits by expiry, with everyone matching excludes today under the same eligibility rule as the simulator.',
       },
       {
-        title: 'Action queue',
-        description: 'The next onboarding or compliance task for each account, in priority order.',
+        title: 'Data quality',
+        description:
+          'Rule-based checks across every dataset, scored by completeness, validity, uniqueness, consistency and timeliness, with a suggested fix for every issue.',
+      },
+      {
+        title: 'Customer retention',
+        description:
+          'Monthly cohorts of new customers and the share still members in each month after going live.',
       },
     ],
   },
@@ -132,17 +148,17 @@ export const sections: readonly Section[] = [
       {
         title: 'Sector prioritisation',
         description:
-          'The nine target sectors scored on HV dependency, cost of downtime and how easily they can be reached.',
+          'The nine target sectors scored on six weighted criteria and placed on an attractiveness and ability-to-win matrix, with a live recommendation and a check that it survives changes to the weights.',
       },
       {
-        title: 'Alternatives',
+        title: 'Alternatives & positioning',
         description:
-          'What organisations do today, from in-house authorised persons to contractor retainers and ad hoc call-outs, and how a membership compares.',
+          'In-house authorised persons, maintenance contracts, framework contractors and ad hoc phone searches against PowerSOS on six factors, and a positioning statement for the top sector.',
       },
       {
         title: 'Pricing sandbox',
         description:
-          'Illustrative membership tiers with unlimited call-outs and early-adopter discounts, tested against margin and take-up.',
+          'Illustrative membership tiers, pay-per-call-out pricing and responder payouts, with customer break-even against ad hoc call-outs and a 24-month projection.',
       },
     ],
   },
@@ -153,21 +169,27 @@ export const sections: readonly Section[] = [
     title: 'Pipeline',
     question: 'Who are the early adopters, what are they asking for, and what do we send them?',
     summary:
-      'An early-adopter CRM, a loop from customer conversations into the roadmap, and a generator for tailored proposals.',
+      'An early-adopter CRM, a loop from customer conversations to a tested backlog, a generator for tailored proposals and a plan of industry events.',
     modules: [
       {
         title: 'Early-adopter CRM',
-        description: 'Wait-list organisations by sector, number of sites, stage and next step.',
+        description:
+          'Every lead on a board from first contact to live, valued at the pricing defaults and weighted by stage, with conversion by source and the deals that have stalled.',
       },
       {
         title: 'Voice of customer → roadmap',
         description:
-          'Themes from customer conversations, counted and linked to the roadmap items they support.',
+          'Feedback from all four sides, tagged by theme and rolled up into feature requests ranked by RICE, each with a user story, acceptance criteria and a UAT result.',
       },
       {
         title: 'Proposal generator',
         description:
-          'A tailored membership proposal for a prospect, built from its sites, sector and pricing tier.',
+          "A one-page proposal for any lead: its sites and today's cover, the cost of downtime against membership, the recommended tier and an onboarding plan, ready to print.",
+      },
+      {
+        title: 'Events planner',
+        description:
+          'Kinds of UK industry event worth attending, with who each reaches, what it is for and its budget, and every name and date left to verify.',
       },
     ],
   },
@@ -192,5 +214,6 @@ export function formatSectionNumber(n: number): string {
 export function pageTitleFor(pathname: string): string | undefined {
   const path = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname
   if (path === overview.path) return overview.title
+  if (import.meta.env.DEV && path === dataExplorer.path) return dataExplorer.title
   return sections.find((s) => s.path === path)?.title
 }

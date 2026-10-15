@@ -13,7 +13,9 @@ export default function RouteError() {
   return (
     <main className="mx-auto flex min-h-dvh max-w-xl flex-col justify-center px-4 py-16">
       <p className="font-mono text-xs tracking-wider text-accent-ink uppercase">Error</p>
-      <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink">Something went wrong</h1>
+      <h1 className="mt-3 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+        Something went wrong
+      </h1>
       <p className="mt-4 leading-relaxed text-ink-muted">
         This page hit an error. Reloading usually fixes it.
       </p>
@@ -24,7 +26,7 @@ export default function RouteError() {
       )}
       <a
         href={overview.path}
-        className="mt-8 inline-flex self-start rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent hover:opacity-90"
+        className="mt-8 inline-flex h-10 items-center self-start rounded-lg bg-accent px-4 text-sm font-medium text-on-accent hover:brightness-95"
       >
         Back to the overview
       </a>
