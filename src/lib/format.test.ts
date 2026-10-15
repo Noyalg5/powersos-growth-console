@@ -2,8 +2,14 @@ import { describe, expect, it } from 'vitest'
 import {
   formatDate,
   formatDateTime,
+  formatDecimal,
   formatDuration,
   formatGBP,
+  formatGBPCompact,
+  formatHour,
+  formatIsoDate,
+  formatList,
+  formatMonth,
   formatNumber,
   formatPercent,
   formatTime,
@@ -13,6 +19,20 @@ import {
 const summerEvening = Date.UTC(2026, 9, 14, 17, 5)
 // 5 Jan 2026, 00:07 UTC, which is 00:07 in London (GMT)
 const winterMidnight = Date.UTC(2026, 0, 5, 0, 7)
+
+describe('formatMonth and formatHour', () => {
+  it('names the London month', () => {
+    expect(formatMonth(summerEvening)).toBe('Oct 2026')
+    // 23:30 UTC on 31 Mar is already 1 Apr in London (BST)
+    expect(formatMonth(Date.UTC(2026, 2, 31, 23, 30))).toBe('Apr 2026')
+  })
+
+  it('writes an hour of the clock', () => {
+    expect(formatHour(2)).toBe('02:00')
+    expect(formatHour(23)).toBe('23:00')
+    expect(() => formatHour(24)).toThrow(RangeError)
+  })
+})
 
 describe('formatGBP', () => {
   it('uses pounds with grouping and pence', () => {
@@ -54,8 +74,45 @@ describe('dates and times', () => {
     expect(formatDateTime(summerEvening)).toBe('14 Oct 2026, 18:05')
   })
 
+  it('writes ISO 8601 dates for exports, on the London calendar', () => {
+    expect(formatIsoDate(summerEvening)).toBe('2026-10-14')
+    expect(formatIsoDate(winterMidnight)).toBe('2026-01-05')
+    // 23:30 UTC on 31 Mar is already 1 Apr in London (BST)
+    expect(formatIsoDate(Date.UTC(2026, 2, 31, 23, 30))).toBe('2026-04-01')
+  })
+
   it('accepts Date objects', () => {
     expect(formatTime(new Date(summerEvening))).toBe('18:05')
+  })
+})
+
+describe('formatGBPCompact', () => {
+  it('shortens pounds for chart axes', () => {
+    expect(formatGBPCompact(0)).toBe('£0')
+    expect(formatGBPCompact(950)).toBe('£950')
+    expect(formatGBPCompact(1_500)).toBe('£1.5k')
+    expect(formatGBPCompact(20_000)).toBe('£20k')
+    expect(formatGBPCompact(1_250_000)).toBe('£1.3m')
+    expect(formatGBPCompact(-35_000)).toBe('-£35k')
+  })
+})
+
+describe('formatDecimal', () => {
+  it('always shows the same number of decimal places', () => {
+    expect(formatDecimal(4)).toBe('4.0')
+    expect(formatDecimal(2.64)).toBe('2.6')
+    expect(formatDecimal(1234.5, 2)).toBe('1,234.50')
+  })
+})
+
+describe('formatList', () => {
+  it('joins items with commas and a final "and", with no serial comma', () => {
+    expect(formatList(['response time', 'cost certainty', '24/7 cover'])).toBe(
+      'response time, cost certainty and 24/7 cover',
+    )
+    expect(formatList(['Medical', 'Aviation'])).toBe('Medical and Aviation')
+    expect(formatList(['Medical'])).toBe('Medical')
+    expect(formatList([])).toBe('')
   })
 })
 
